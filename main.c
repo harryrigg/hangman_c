@@ -11,7 +11,7 @@ const int NUM_GUESSES = 6;
 int main() {
     Dictionary *dictionary;
     char *word;
-    char guess[2];
+    char guess;
     int complete = 0;
     int remainingGuesses = NUM_GUESSES;
     /* Bit array containing which characters the player has already guessed */
@@ -32,16 +32,15 @@ int main() {
         printf("Remaining guesses: %d\n", remainingGuesses);
         printWordWithChars(word, chars);
 
-        printf("Guess a character: ");
-        scanf("%1s", guess);
+        guess = getCharacter();
 
-        if ((chars >> (*guess - 'a')) & 1) {
+        if ((chars >> (guess - 'a')) & 1) {
             /* Already guessed */
             printf("Character has already been guessed!\n");
             remainingGuesses--;
-        } else if (strstr(word, guess) != NULL) {
+        } else if (strContainsChar(word, guess)) {
             /* Not already guessed and word contains character */
-            chars |= 1 << (*guess - 'a');
+            chars |= 1 << (guess - 'a');
             complete = isComplete(word, chars);
         } else {
             /* Not already guessed and word does not contain character */

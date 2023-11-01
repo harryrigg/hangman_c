@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "util.h"
 
 void printWordWithChars(char *word, int chars) {
@@ -25,4 +26,33 @@ int isComplete(char *word, int chars) {
         word++;
     }
     return complete;
+}
+
+char getCharacter() {
+    char str[20];
+    char result = '\0';
+
+    while (result == '\0') {
+        printf("Guess a character: ");
+        gets(str);
+
+        if (strlen(str) == 1) {
+            result = *str;
+        } else {
+            printf("\nPlease enter a single character\n");
+        }
+    }
+
+    return result;
+}
+
+int strContainsChar(char *str, char ch) {
+    int found = 0;
+    while (!found && *str != '\0') {
+        if (*str == ch) {
+            found = 1;
+        }
+        str++;
+    }
+    return found;
 }
